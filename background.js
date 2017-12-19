@@ -1,8 +1,10 @@
 
 var WIDTH = 1280;
 var HEIGHT = 800;
+var bla;
 
 function screenshot() {
+	console.log("screenshot");
 	chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
 		console.log(1);
 		var img = new Image();
@@ -30,32 +32,36 @@ function elementScreenshot() {
 }
 
 function clipImage(rect, dataImage, transparentBackground, rounded, callback) {
-	console.log(3);
-	var img = document.createElement('img');
 	var canvas = document.createElement('canvas');
+	var canvasImg = new Image();
 
 	console.log('RECT: ' + JSON.stringify(rect));
 	console.log('ROUNDED: ' + rounded);
-	canvas.width = rect.width;
-	canvas.height = rect.height;
-	img.src = dataImage;
+	//canvas.width = rect.width;
+	//canvas.height = rect.height;
 	var ctx = canvas.getContext('2d');
 
-	console.log('Clipping from ' + rect.left + ', ' + rect.top + ', width: ' + rect.width + ', height: ' + rect.height);
-	ctx.drawImage(img, Math.ceil(rect.left), Math.ceil(rect.top), rect.width, rect.height, 0, 0, rect.width, rect.height)
+	/*canvasImg.onload = function() {
+		canvasImg = this;
+		//ctx.drawImage(canvasImg, 0,0, rect.width, rect.height, 0, 0, rect.width, rect.height);
+		ctx.drawImage(canvasImg, Math.ceil(rect.left), Math.ceil(rect.top), rect.width, rect.height, 0, 0, rect.width, rect.height);
+		callback(canvas.toDataURL("image/png"));
 
-	if (transparentBackground) {
-		clearBackground(ctx, rect.width, rect.height);
-	}
-	var fullImage = canvas.toDataURL();
-	console.log('ROUNDED '+  rounded + ', type: ' + typeof(rounded));
-	if (!rounded) {
-		callback(fullImage);
-		return;
-	}
+	};*/
+
+	canvasImg.src = dataImage;
+
+	callback(dataImage);
+
+	console.log('Clipping from ' + rect.left + ', ' + rect.top + ', width: ' + rect.width + ', height: ' + rect.height);
+	//ctx.drawImage(img, Math.ceil(rect.left), Math.ceil(rect.top), rect.width, rect.height, 0, 0, rect.width, rect.height)
+
+
+	//var fullImage = canvas.toDataURL();
+
 	//Add rounded corners
 
-	roundImage(rect, canvas, ctx, fullImage, rounded, callback);
+	//roundImage(rect, canvas, ctx, fullImage, rounded, callback);
 }
 
 function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
@@ -65,7 +71,7 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 	canvas.height = rect.height;
 
 	var maskImageSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + rect.width + '" height="' + rect.height + '">' +
-	        		'<rect width="100%" height="100%" rx="' + rounded + '" ry="' + rounded + '" fill="blue" /></svg>'   
+	        		'<rect width="100%" height="100%" rx="' + rounded + '" ry="' + rounded + '" fill="blue" /></svg>';   
 
 
 	var DOMURL = window.URL || window.webkitURL || window;
@@ -85,10 +91,11 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 		newImg.onload = function() {
 			console.log('NEW IMAGE LOADED');
 			ctx.drawImage(newImg,0,0, rect.width, rect.height);
-			callback(canvas.toDataURL());
+			//callback(canvas.toDataURL("image/png"));
 		}
 
 		newImg.src = dataUrl;
+					callback(canvas.toDataURL("image/png"));
 	}
 	console.log('Setting url on mask image: ' + maskUrl);
 	maskImage.src = maskUrl;
@@ -145,10 +152,10 @@ chrome.contextMenus.create({
  });
 
 chrome.runtime.onMessage.addListener(function(rect, sender, sendResponse) {
-	console.log(4);
+	console.log("rect: ", rect);
 	var id = sender.tab.id;
 	chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
-		clipImage(rect, dataUrl, !!rect.transparentBackground, rect.rounded, function(result) {
+		clipImage(rect, dataUrl, !!rect.transparentBackground, false, function(result) {
 			chrome.tabs.create({url:result});
 		});
 	});
