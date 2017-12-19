@@ -2,6 +2,11 @@
 	"manifest_version": 2,
 	"name": "AdReporter",
 	"version": "0.1",
+	"background": {
+		"scripts": [
+			"background.js"
+		]
+	},
 	"content_scripts": [
 	{
 		"matches": [
@@ -10,9 +15,7 @@
 		"js": ["node_modules/jquery-3.2.1.min.js", "content.js"],
 		"css": ["style.css"]
 	}
-	],"background" : {
-    "scripts" : ["background.js"]
-    },
+	],
   "permissions": [
     "activeTab",
     "contextMenus",
