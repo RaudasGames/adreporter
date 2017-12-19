@@ -3,3 +3,39 @@
 	text-align: center;
 	padding-top: 5px;
 }
+
+#ad-dialog {
+	margin: 0 auto;
+	width: 315px;
+	height: 230px;
+	background: rgb(0,160,0);
+	border-color:yellow;
+}
+
+#ad-text {
+	width:290px;
+	height:150px;
+	resize: none;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#ad-close, #ad-send {
+
+}
+
+#ad-dialog p {
+	text-align: center;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	font-size: 13px;
+	color:white;
+}
+
+#ad-button-div {
+	display: flex;
+    justify-content: space-between;
+    width: 60%;
+    margin: 0 auto;
+}

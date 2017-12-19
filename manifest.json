@@ -10,13 +10,13 @@
 		"js": ["node_modules/jquery-3.2.1.min.js", "content.js"],
 		"css": ["style.css"]
 	}
-	],
-	"background": {
-		"scripts": ["background.js"]
-		},
-	"permissions": [
-		"activeTab",
-		"contextMenus",
-		"tabs"
-	]
+	],"background" : {
+    "scripts" : ["background.js"]
+    },
+  "permissions": [
+    "activeTab",
+    "contextMenus",
+    "tabs",
+    "<all_urls>"
+  ]
 }
