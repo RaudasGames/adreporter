@@ -118,7 +118,9 @@ chrome.runtime.onMessage.addListener(function(rect, sender, sendResponse) {
 	var id = sender.tab.id;
 	chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
 		clipImage(rect, dataUrl, !!rect.transparentBackground, false, function(result) {
-			chrome.tabs.create({url:result});
+			//chrome.tabs.create({url:result});
+			sendResponse({imgData:result});
 		});
 	});
+	return true;
 });

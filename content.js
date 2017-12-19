@@ -8,18 +8,19 @@ $('#draper-right').append(reportRight);
 
 $('#report-link-left').on('click', function() {
 	activeTarget = document.getElementById('draper-left');
-	adDialog();
+	takePicture();
 	//activeTarget = $('#draper-left');
 });
 
 $('#report-link-right').on('click', function() {
 	activeTarget = document.getElementById('draper-right');
-	adDialog();
+	takePicture();
 	//activeTarget = $('#draper-right');
 });
 
 function adDialog() {
-	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
+	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div>';
+	dialogHTML += '<img src=' + imgSrc + ' /></dialog>';
 	$('html').append(dialogHTML);
 	var dialog = document.querySelector("dialog")
 	$('#ad-close').on('click', function() {
@@ -28,7 +29,6 @@ function adDialog() {
 	$('#ad-send').on('click', function() {
 		var adText = $('#ad-text').val();
 		dialog.close();
-		takePicture();
 	});
 	dialog.showModal();
 }
@@ -39,7 +39,7 @@ function takePicture() {
 		return;
 	}
 	var rect = activeTarget.getBoundingClientRect();
-	console.log("rect.top: ", rect.top, " rect.left: ", rect.left, " rect.width: ", rect.width, " rect.height: ", rect.height);
+	
 	setTimeout(function() {
 		chrome.runtime.sendMessage({
 			height: rect.height,
@@ -50,6 +50,9 @@ function takePicture() {
 			top: activeTarget.offset().top,
 			width: activeTarget.width(),
 			height: activeTarget.height()*/
+		}, function(response) {
+			imgSrc = response.imgData;
+			adDialog();
 		});
 	},200);
 }
