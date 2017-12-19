@@ -19,7 +19,8 @@ $('#report-link-right').on('click', function() {
 });
 
 function adDialog() {
-	document.body.innerHTML += '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
+	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
+	$('html').append(dialogHTML);
 	var dialog = document.querySelector("dialog")
 	$('#ad-close').on('click', function() {
 		dialog.close();
