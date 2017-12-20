@@ -10,7 +10,8 @@
 	"content_scripts": [
 	{
 		"matches": [
-		"https://cardgames.io/*"
+		"https://cardgames.io/*",
+		"http://dev.cardgames.io:3000/*"
 		],
 		"js": ["node_modules/jquery-3.2.1.min.js", "content.js"],
 		"css": ["style.css"]

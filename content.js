@@ -19,7 +19,7 @@ $('#report-link-right').on('click', function() {
 });
 
 function adDialog() {
-	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br>';
+	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div><br>';
 	dialogHTML += '<img src=' + imgSrc + ' /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
 	$('html').append(dialogHTML);
 	var dialog = document.querySelector("dialog")
@@ -28,7 +28,8 @@ function adDialog() {
 	});
 	$('#ad-send').on('click', function() {
 		var adText = $('#ad-text').val();
-		sendReport(adText, imgSrc);
+		var email = $('#ad-email-input input').val();
+		sendReport(adText, imgSrc, email);
 		dialog.close();
 	});
 	dialog.showModal();
@@ -55,14 +56,14 @@ function takePicture() {
 	},200);
 }
 
-function sendReport(txt, img) {
+function sendReport(txt, img, email) {
 	setTimeout(function() {
 		chrome.runtime.sendMessage({
 			type: 'report',
 			text: txt,
-			image: img
+			image: img,
+			email: email
 		}, function(response) {
-
 			var requestListString = "";
 			var reqs = response.req;
 			for (var i = 0; i < reqs.length; i++) {
@@ -72,28 +73,14 @@ function sendReport(txt, img) {
 			var dataToSend = {
 				message: response.txt,
 				image: response.img,
-				requests: requestListString
+				requests: requestListString,
+				email: response.email
 			};
 
-			/*$.post("http://localhost:5000/api/adreport", dataToSend, function(data, status) {
-				console.log(status);
-			});*/
-			/*var xmlhttp = new XMLHttpRequest();
-
-			var url = 'api/adreport';
-			xmlhttp.open("POST", url, true);
-			xmlhttp.setRequestHeader("Content-type", "application/json");
-			xmlhttp.onreadystatechange = function () { //Call a function when the state changes.
-				console.log("jamm");
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-					alert(xmlhttp.responseText);
-				}
-			};
-
-			xmlhttp.send(dataToSend);*/
+			var xmlhttp = new XMLHttpRequest();
 			$.ajax({
 				type: "POST",
-				url: 'api/adreport',
+				url: 'http://localhost:5000/api/adreport',
 				data: JSON.stringify(dataToSend),
 				contentType: "application/json",
 				dataType: "json"

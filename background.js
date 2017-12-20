@@ -99,22 +99,10 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 }
 
 
-
-chrome.contextMenus.create({
-	title : 'Take ' + WIDTH + 'x' + HEIGHT + ' screenshot', 
-	contexts : ["page"],
-	onclick: screenshot
-});
-
-chrome.contextMenus.create({
-	title : "Select element to take picture of", 
-	contexts : ["page"],
-	onclick: elementScreenshot
-});
-
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 	var id = sender.tab.id;
+	console.log(id);
 	if (request.type === 'picture') {
 		chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
 			clipImage(request, dataUrl, !!request.transparentBackground, false, function(result) {
@@ -126,7 +114,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		var dataToSend = {
 			txt: request.text,
 			img: request.image,
-			req: requests
+			req: requests,
+			email: request.email
 		};
 		sendResponse(dataToSend);
 	} else {
