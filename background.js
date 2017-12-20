@@ -123,7 +123,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			});
 		});
 	} else if (request.type === 'report') {
-		console.log("Yiss");
+		var dataToSend = {
+			txt: request.text,
+			img: request.image,
+			req: requests
+		};
+		sendResponse(dataToSend);
 	} else {
 		console.log("wtf");
 	}
@@ -142,7 +147,7 @@ function logURL(requestDetails) {
 			currUrl = tabs[0].url;
 			var reqUrl = requestDetails.url;
 			if (!reqUrl.match('.*cardgames\.io.*') && !reqUrl.match('.*cloudfront.*') && currUrl.match('.*cardgames\.io.*')) {
-				console.log(reqUrl);
+				//console.log(reqUrl);
 				requests.push(reqUrl);
 			}
 		} else {
@@ -155,3 +160,9 @@ chrome.webRequest.onBeforeRequest.addListener(
 	logURL,
 	{urls: ["<all_urls>"]}
 );
+
+chrome.webNavigation.onBeforeNavigate.addListener(function(details) {
+	if (details.frameId === 0 && details.url.match('.*cardgames\.io.*')) {
+		requests = [];
+	}
+});

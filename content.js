@@ -14,14 +14,6 @@ $('#report-link-left').on('click', function() {
 
 $('#report-link-right').on('click', function() {
 	activeTarget = document.getElementById('draper-right');
-	var scripts = document.getElementsByTagName('script');
-	for (var i = 0; i < scripts.length; i++) {
-		console.log(scripts[i]);
-		console.log(scripts[i].parentNode);
-		if (activeTarget.contains(scripts[i])) {
-			
-		}
-	}
 	takePicture();
 	//activeTarget = $('#draper-right');
 });
@@ -70,7 +62,20 @@ function sendReport(txt, img) {
 			text: txt,
 			image: img
 		}, function(response) {
-			//gera eitthvað?
+
+			var requestListString = "";
+			var reqs = response.req;
+			for (var i = 0; i < reqs.length; i++) {
+				requestListString += (reqs[i] + '\n');
+			}
+
+			var dataToSend = {
+				message: response.msg,
+				image: response.img,
+				requests: requestListString
+			};
+
+			console.log(dataToSend.requests);
 		});
 	}, 200);
 }
