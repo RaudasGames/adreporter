@@ -1,5 +1,6 @@
 
 var activeTarget;
+var imgSrc = "";
 
 var reportLeft="<div id=\"report-link-left\">Report ad</div>";
 var reportRight="<div id=\"report-link-right\">Report ad</div>"
@@ -7,12 +8,14 @@ $('#draper-left').append(reportLeft);
 $('#draper-right').append(reportRight);
 
 $('#report-link-left').on('click', function() {
+	imgSrc = "";
 	activeTarget = document.getElementById('draper-left');
 	takePicture();
 	//activeTarget = $('#draper-left');
 });
 
 $('#report-link-right').on('click', function() {
+	imgSrc = "";
 	activeTarget = document.getElementById('draper-right');
 	takePicture();
 	//activeTarget = $('#draper-right');
@@ -20,8 +23,9 @@ $('#report-link-right').on('click', function() {
 
 function adDialog() {
 	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div><br>';
-	dialogHTML += '<img src=' + imgSrc + ' /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
+	dialogHTML += '<img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
 	$('html').append(dialogHTML);
+	$('#ad-dialog img').attr("src", imgSrc);
 	var dialog = document.querySelector("dialog")
 	$('#ad-close').on('click', function() {
 		dialog.close();
