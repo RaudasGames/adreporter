@@ -50,3 +50,9 @@
     width: 60%;
     margin: 0 auto;
 }
+
+#ad-email-input {
+	font-size:13px;
+	color:white;
+	text-align: center;
+}

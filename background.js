@@ -126,7 +126,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 		var dataToSend = {
 			txt: request.text,
 			img: request.image,
-			req: requests
+			req: requests,
+			email: request.email
 		};
 		sendResponse(dataToSend);
 	} else {
