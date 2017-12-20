@@ -20,6 +20,9 @@
     "activeTab",
     "contextMenus",
     "tabs",
+    "webNavigation",
+    "webRequest",
     "<all_urls>"
-  ]
+  ],
+  "icons": {"128": "eicon.png" }
 }

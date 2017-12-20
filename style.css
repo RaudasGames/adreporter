@@ -2,14 +2,25 @@
 	color:black!important;
 	text-align: center;
 	padding-top: 5px;
+	font-size: 12px;
+	cursor: pointer;
+	color: blue!important;
+	text-decoration: underline;
 }
 
 #ad-dialog {
 	margin: 0 auto;
 	width: 315px;
-	height: 230px;
+	height: 445px;
 	background: rgb(0,160,0);
 	border-color:yellow;
+}
+
+#ad-dialog img {
+	max-width:95%;
+	max-height:45%;
+	margin: 0 auto;
+	display: block;
 }
 
 #ad-text {

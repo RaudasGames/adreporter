@@ -1,7 +1,6 @@
 
 var WIDTH = 1280;
 var HEIGHT = 800;
-var bla;
 
 function screenshot() {
 	chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
@@ -69,7 +68,7 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 	canvas.height = rect.height;
 
 	var maskImageSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="' + rect.width + '" height="' + rect.height + '">' +
-	        		'<rect width="100%" height="100%" rx="' + rounded + '" ry="' + rounded + '" fill="blue" /></svg>';   
+	'<rect width="100%" height="100%" rx="' + rounded + '" ry="' + rounded + '" fill="blue" /></svg>';   
 
 
 	var DOMURL = window.URL || window.webkitURL || window;
@@ -93,7 +92,7 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 		}
 
 		newImg.src = dataUrl;
-					callback(canvas.toDataURL("image/png"));
+		callback(canvas.toDataURL("image/png"));
 	}
 	console.log('Setting url on mask image: ' + maskUrl);
 	maskImage.src = maskUrl;
@@ -104,23 +103,55 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 chrome.contextMenus.create({
 	title : 'Take ' + WIDTH + 'x' + HEIGHT + ' screenshot', 
 	contexts : ["page"],
- 	onclick: screenshot
- });
+	onclick: screenshot
+});
 
 chrome.contextMenus.create({
 	title : "Select element to take picture of", 
 	contexts : ["page"],
- 	onclick: elementScreenshot
- });
+	onclick: elementScreenshot
+});
 
-chrome.runtime.onMessage.addListener(function(rect, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 	var id = sender.tab.id;
-	chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
-		clipImage(rect, dataUrl, !!rect.transparentBackground, false, function(result) {
-			//chrome.tabs.create({url:result});
-			sendResponse({imgData:result});
+	if (request.type === 'picture') {
+		chrome.tabs.captureVisibleTab(null, {format:'png'}, function(dataUrl) {
+			clipImage(request, dataUrl, !!request.transparentBackground, false, function(result) {
+				//chrome.tabs.create({url:result});
+				sendResponse({imgData:result});
+			});
 		});
-	});
+	} else if (request.type === 'report') {
+		console.log("Yiss");
+	} else {
+		console.log("wtf");
+	}
+	
 	return true;
 });
+
+var requests = [];
+
+function logURL(requestDetails) {
+	chrome.tabs.query({
+		active: true,
+		lastFocusedWindow: true
+	}, function(tabs) {
+		if (tabs) {
+			currUrl = tabs[0].url;
+			var reqUrl = requestDetails.url;
+			if (!reqUrl.match('.*cardgames\.io.*') && !reqUrl.match('.*cloudfront.*') && currUrl.match('.*cardgames\.io.*')) {
+				console.log(reqUrl);
+				requests.push(reqUrl);
+			}
+		} else {
+			console.log("wtf");
+		}
+	});
+}
+
+chrome.webRequest.onBeforeRequest.addListener(
+	logURL,
+	{urls: ["<all_urls>"]}
+);
