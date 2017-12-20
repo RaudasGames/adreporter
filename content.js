@@ -70,12 +70,34 @@ function sendReport(txt, img) {
 			}
 
 			var dataToSend = {
-				message: response.msg,
+				message: response.txt,
 				image: response.img,
 				requests: requestListString
 			};
 
-			console.log(dataToSend.requests);
+			/*$.post("http://localhost:5000/api/adreport", dataToSend, function(data, status) {
+				console.log(status);
+			});*/
+			/*var xmlhttp = new XMLHttpRequest();
+
+			var url = 'api/adreport';
+			xmlhttp.open("POST", url, true);
+			xmlhttp.setRequestHeader("Content-type", "application/json");
+			xmlhttp.onreadystatechange = function () { //Call a function when the state changes.
+				console.log("jamm");
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					alert(xmlhttp.responseText);
+				}
+			};
+
+			xmlhttp.send(dataToSend);*/
+			$.ajax({
+				type: "POST",
+				url: 'api/adreport',
+				data: JSON.stringify(dataToSend),
+				contentType: "application/json",
+				dataType: "json"
+			});
 		});
 	}, 200);
 }
