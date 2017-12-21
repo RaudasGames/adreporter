@@ -10,8 +10,11 @@
 #ad-dialog {
 	width: 315px;
 	background: rgb(0,160,0);
-	border-color:yellow;
 	border-radius: 15px;
+	border: solid 2px white;
+    box-shadow: black 0 0 10px;
+    position: fixed;
+    top: 20%;
 }
 
 #ad-dialog img {

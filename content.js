@@ -22,8 +22,8 @@ $('#report-link-right').on('click', function() {
 });
 
 function adDialog() {
-	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div><br>';
-	dialogHTML += '<img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
+	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div>';
+	dialogHTML += '<p>Screenshot of ad</p><img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
 	$('html').append(dialogHTML);
 	var left = $('#board').position().left + ($('#board').width() / 2) - ($('#ad-dialog').width() / 2) + 5;
 	$('#ad-dialog').css("left", left + "px");
@@ -33,7 +33,7 @@ function adDialog() {
 	$('#ad-send').prop("disabled", true);
 
 	setTimeout(function() {
-		var dialogHeight = $('#ad-text').height() + $('#ad-dialog img').height() + 150;
+		var dialogHeight = $('#ad-text').height() + $('#ad-dialog img').height() + 170;
 			$('#ad-dialog').css('height', dialogHeight + "px");
 		}, 10);
 	
