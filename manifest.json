@@ -25,5 +25,5 @@
     "webRequest",
     "<all_urls>"
   ],
-  "icons": {"128": "eicon.png" }
+  "icons": {"128": "picon.png" }
 }
