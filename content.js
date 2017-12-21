@@ -2,8 +2,8 @@
 var activeTarget;
 var imgSrc = "";
 
-var reportLeft="<div id=\"report-link-left\">Report ad</div>";
-var reportRight="<div id=\"report-link-right\">Report ad</div>"
+var reportLeft="<div id=\"report-link-left\"><strong>Report ad</strong></div>";
+var reportRight="<div id=\"report-link-right\"><strong>Report ad</strong></div>"
 $('#draper-left').append(reportLeft); 
 $('#draper-right').append(reportRight);
 
@@ -25,10 +25,18 @@ function adDialog() {
 	var dialogHTML = '<dialog id=\"ad-dialog\"><p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div><br>';
 	dialogHTML += '<img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
 	$('html').append(dialogHTML);
+	var left = $('#board').position().left + ($('#board').width() / 2) - ($('#ad-dialog').width() / 2) + 5;
+	$('#ad-dialog').css("left", left + "px");
 	$('#ad-dialog img').attr("src", imgSrc);
 	$('#ad-text').val('');
 	$('#ad-email-input input').val('');
 	$('#ad-send').prop("disabled", true);
+
+	setTimeout(function() {
+		var dialogHeight = $('#ad-text').height() + $('#ad-dialog img').height() + 150;
+			$('#ad-dialog').css('height', dialogHeight + "px");
+		}, 10);
+	
 
 	$('#ad-email-input input').on('input', function() {
 		var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;

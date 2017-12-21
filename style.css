@@ -5,13 +5,10 @@
 	font-size: 12px;
 	cursor: pointer;
 	color: blue!important;
-	text-decoration: underline;
 }
 
 #ad-dialog {
-	margin: 0 auto;
 	width: 315px;
-	height: 445px;
 	background: rgb(0,160,0);
 	border-color:yellow;
 	border-radius: 15px;
@@ -39,8 +36,8 @@
 
 #ad-dialog p {
 	text-align: center;
-	padding-top: 1px;
-	padding-bottom: 1px;
+	padding-top: 10px;
+	padding-bottom: 5px;
 	font-size: 13px;
 	font-family: Arial,Helvetica,sans-serif;
 	color:white;
