@@ -26,11 +26,26 @@ function adDialog() {
 	dialogHTML += '<img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
 	$('html').append(dialogHTML);
 	$('#ad-dialog img').attr("src", imgSrc);
+	$('#ad-text').val('');
+	$('#ad-email-input input').val('');
+	$('#ad-send').prop("disabled", true);
+
+	$('#ad-email-input input').on('input', function() {
+		var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+		var currEmail = $('#ad-email-input input').val();
+		if (testEmail.test(currEmail)) {
+			$('#ad-send').prop("disabled", false);
+		}
+		else {
+			$('#ad-send').prop("disabled", true);
+		}
+	});
+
 	var dialog = document.querySelector("dialog")
-	$('#ad-close').on('click', function() {
+	$('#ad-close').off().on('click', function() {
 		dialog.close();
 	});
-	$('#ad-send').on('click', function() {
+	$('#ad-send').off().on('click', function() {
 		var adText = $('#ad-text').val();
 		var email = $('#ad-email-input input').val();
 		sendReport(adText, imgSrc, email);
@@ -71,7 +86,7 @@ function sendReport(txt, img, email) {
 			var requestListString = "";
 			var reqs = response.req;
 			for (var i = 0; i < reqs.length; i++) {
-				requestListString += (reqs[i] + '\n');
+				requestListString += (reqs[i] + '\n\n');
 			}
 
 			var dataToSend = {

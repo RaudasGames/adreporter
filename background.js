@@ -88,11 +88,11 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 		newImg.onload = function() {
 			console.log('NEW IMAGE LOADED');
 			ctx.drawImage(newImg,0,0, rect.width, rect.height);
-			//callback(canvas.toDataURL("image/png"));
+			callback(canvas.toDataURL("image/png"));
 		}
 
 		newImg.src = dataUrl;
-		callback(canvas.toDataURL("image/png"));
+		//callback(canvas.toDataURL("image/png"));
 	}
 	console.log('Setting url on mask image: ' + maskUrl);
 	maskImage.src = maskUrl;
@@ -136,7 +136,7 @@ function logURL(requestDetails) {
 			currUrl = tabs[0].url;
 			var reqUrl = requestDetails.url;
 			if (!reqUrl.match('.*cardgames\.io.*') && !reqUrl.match('.*cloudfront.*') && currUrl.match('.*cardgames\.io.*')) {
-				//console.log(reqUrl);
+				console.log(reqUrl);
 				requests.push(reqUrl);
 			}
 		} else {
