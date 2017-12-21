@@ -86,7 +86,7 @@ function sendReport(txt, img, email) {
 			var requestListString = "";
 			var reqs = response.req;
 			for (var i = 0; i < reqs.length; i++) {
-				requestListString += (reqs[i] + '\n\n');
+				requestListString += (reqs[i] + ' <br><br>');
 			}
 
 			var dataToSend = {
