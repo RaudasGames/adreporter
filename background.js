@@ -100,7 +100,7 @@ function roundImage(rect, canvas, ctx, dataUrl, rounded, callback) {
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-
+	
 	var id = sender.tab.id;
 	console.log(id);
 	if (request.type === 'picture') {
@@ -126,6 +126,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 var requests = [];
+var currUrl = "";
 
 function logURL(requestDetails) {
 	chrome.tabs.query({
