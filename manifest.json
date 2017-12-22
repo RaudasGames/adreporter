@@ -19,11 +19,10 @@
 	],
   "permissions": [
     "activeTab",
-    "contextMenus",
     "tabs",
     "webNavigation",
     "webRequest",
     "<all_urls>"
-  ],
-  "icons": {"128": "picon.png" }
+	],
+	"converted_from_user_script": true
 }
