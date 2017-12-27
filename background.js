@@ -46,8 +46,10 @@ function logURL(requestDetails) {
 		if (tabs) {
 			currUrl = tabs[0].url;
 			var reqUrl = requestDetails.url;
-			if (!reqUrl.match('.*cardgames\.io.*') && !reqUrl.match('.*cloudfront.*') && currUrl.match('.*cardgames\.io.*')) {
-				requests.push(reqUrl);
+			if (!reqUrl.match('https://cardgames\.io.*') && !reqUrl.match('http://dev.cardgames.io.*') && !reqUrl.match('.*cloudfront.*') && currUrl.match('.*cardgames\.io.*')) {
+				if (tabs[0].id === requestDetails.tabId) {
+					requests.push(reqUrl);
+				}
 			}
 		} else {
 			console.log("wtf");

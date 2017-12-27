@@ -1,3 +1,14 @@
+var dialogHtml = document.createElement('div');
+dialogHtml.innerHTML = '<p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div>';
+dialogHtml.innerHTML += '<p>Screenshot of ad</p><img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
+dialogHtml.setAttribute('id', 'ad-dialog');
+el('#play-page').appendChild(dialogHtml);
+
+window.onclick = function(event) {
+    if (event.target !== dialogHtml) {
+        dialogHtml.style.display = "none";
+    }
+}
 
 var reportLeft = document.createElement('div');
 reportLeft.innerHTML = '<strong>Report ad</strong>';
@@ -12,7 +23,7 @@ el('#draper-right').appendChild(reportRight);
 
 reportLeft.addEventListener('click', function() {
 	imgSrc = "";
-	takePicture();
+	takePicture();	
 });
 
 reportRight.addEventListener('click', function() {
@@ -21,11 +32,7 @@ reportRight.addEventListener('click', function() {
 });
 
 function adDialog(imgSrc) {
-	var dialogHtml = document.createElement('dialog');
-	dialogHtml.innerHTML = '<p>Please tell us your issue with this ad</p><textarea id=\"ad-text\" rows=\"5\" col=\"40\"></textarea><br><div id=\"ad-email-input\">Your email: <input type=\"text\"/></div>';
-	dialogHtml.innerHTML += '<p>Screenshot of ad</p><img /><br><div id=\"ad-button-div\"><button id=\"ad-close\">Cancel</button><button id=\"ad-send\">Send</button></div></dialog>';
-	dialogHtml.setAttribute('id', 'ad-dialog');
-	el('#play-page').appendChild(dialogHtml);
+	dialogHtml.style.display = "block";
 	//dialogHtml.style.visibility = 'hidden';
 
 
@@ -50,7 +57,7 @@ function adDialog(imgSrc) {
 	
 	
 	el('#ad-email-input input').addEventListener('input', function () {
-		var testEmail = /.+@.+\..+/;
+		var testEmail = /.+@/;
 		var currEmail = el('#ad-email-input input').value;
 		if (testEmail.test(currEmail)) {
 			el('#ad-send').disabled = false;
@@ -59,26 +66,20 @@ function adDialog(imgSrc) {
 			el('#ad-send').disabled = true;
 		}
 	});
-
-	var dialog = document.querySelector("dialog");
 	
 	el('#ad-close').addEventListener('click', function() {
-		dialog.close();
+		dialogHtml.style.display = "none";
 	});
 	el('#ad-send').addEventListener('click', function() {
 		var adText = el('#ad-text').value;
 		var email = el('#ad-email-input input').value;
 		sendReport(adText, imgSrc, email);
-		dialog.close();
+		dialogHtml.style.display = "none";
 	});
-	dialog.showModal();
 }
 
 
 function takePicture() {
-	if (!activeTarget) {
-		return;
-	}
 
 	setTimeout(function() {
 		chrome.runtime.sendMessage({
