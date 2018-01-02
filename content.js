@@ -103,7 +103,8 @@ function sendReport(txt, img, email) {
 				requests: requestListString,
 				email: response.email
 			};
-
+			
+			console.log("Data to send: ", dataToSend);
 			var xmlhttp = new XMLHttpRequest();
 			$.ajax({
 				type: "POST",

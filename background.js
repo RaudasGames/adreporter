@@ -137,7 +137,7 @@ function logURL(requestDetails) {
 			currUrl = tabs[0].url;
 			var reqUrl = requestDetails.url;
 			if (!reqUrl.match('.*cardgames\.io.*') && !reqUrl.match('.*cloudfront.*') && currUrl.match('.*cardgames\.io.*')) {
-				console.log(reqUrl);
+				//console.log(reqUrl);
 				requests.push(reqUrl);
 			}
 		} else {
