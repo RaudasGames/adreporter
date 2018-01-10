@@ -1,28 +1,19 @@
 {
-	"manifest_version": 2,
-	"name": "AdReporter",
-	"version": "0.1",
-	"background": {
-		"scripts": [
-			"background.js"
-		]
-	},
-	"content_scripts": [
-	{
-		"matches": [
-		"https://cardgames.io/*",
-		"http://dev.cardgames.io:3000/*"
-		],
-		"js": ["node_modules/jquery-3.2.1.min.js", "content.js"],
-		"css": ["style.css"]
-	}
-	],
-  "permissions": [
-    "activeTab",
-    "tabs",
-    "webNavigation",
-    "webRequest",
-    "<all_urls>"
-	],
-	"converted_from_user_script": true
+    "manifest_version": 2,
+    "name": "CardGames.io Ad Reporter",
+    "version": "1.0",
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://cardgames.io/*"],
+            "js": ["content.js"],
+            "css": ["style.css"]
+        }
+    ],
+    "permissions": [
+        "webRequest",
+        "<all_urls>"
+    ]
 }

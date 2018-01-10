@@ -1,66 +1,83 @@
 #report-link-left, #report-link-right {
-	color:black!important;
-	text-align: center;
-	padding-top: 5px;
-	font-size: 12px;
-	cursor: pointer;
-	color: blue!important;
+    color:black!important;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    color: blue!important;
 }
 
 #ad-dialog {
-	width: 315px;
-	background: rgb(0,160,0);
-	border-radius: 15px;
-	border: solid 2px white;
+    width: 500px;
+    height:555px;
+    background: rgb(0,160,0);
+    border-radius: 15px;
+    border: solid 2px white;
     box-shadow: black 0 0 10px;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top: -80%;
-    position:relative;
-    top: 15%;
+    position:absolute;
+    left:50%;
+    margin-left:-250px;
+    top:20px;
     display:none;
-    z-index:10000;
+    z-index:1000000;
+}
+
+#ad-dialog h3, #ad-dialog h5 {
+    color:white !important;
+}
+
+#ad-dialog button {
+    margin:4px !important;
+}
+
+#ad-dialog h5 {
+    margin-top:10px;
+    margin-bottom:4px;
 }
 
 #ad-dialog img {
-	max-width:95%;
-	max-height:160px;
-	margin: 0 auto;
-	display: block;
+    max-width:95%;
+    max-height:180px;
+    margin: 0 auto;
+    display: block;
 }
 
 #ad-text {
-	width:290px;
-	height:150px;
-	resize: none;
-	display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#ad-close, #ad-send {
-
+    width:450px;
+    height:150px;
+    resize: none;
+    display: block;
+    margin:auto;
+    padding:4px;
+    font-size:14px;
 }
 
 #ad-dialog p {
-	text-align: center;
-	padding-top: 10px;
-	padding-bottom: 5px;
-	font-size: 13px;
-	font-family: Arial,Helvetica,sans-serif;
-	color:white;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    font-size: 13px;
+    font-family: Arial,Helvetica,sans-serif;
+    color:white;
 }
 
 #ad-button-div {
-	display: flex;
+    display: flex;
     justify-content: space-between;
     width: 60%;
     margin: 0 auto;
 }
 
 #ad-email-input {
-	font-size:13px;
-	color:white;
-	font-family: Arial,Helvetica,sans-serif;
-	text-align: center;
+    font-size:14px;
+    color:white;
+    font-family: Arial,Helvetica,sans-serif;
+    text-align: center;
+    margin: 10px auto;
+}
+
+#ad-email-input input {
+    font-size:14px;
+    padding:3px;
+    width:210px;
 }
