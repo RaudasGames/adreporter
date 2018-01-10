@@ -15,7 +15,7 @@ var ourDomains = /^https:\/\/cardgames\.io\/.*/;
 function logURL(requestDetails) {
     var tabId = requestDetails.tabId;
 
-    console.log('url ' + requestDetails.url + ' Matches: ' + requestDetails.url.match(ourDomains));
+    //console.log('url ' + requestDetails.url + ' Matches: ' + requestDetails.url.match(ourDomains));
     if (requestDetails.type === 'main_frame') {
         if (requestDetails.url.match(ourDomains)) {
             activeTabs[tabId] = []; //Reset on each page load... 
@@ -31,9 +31,3 @@ function logURL(requestDetails) {
 }
 
 chrome.webRequest.onBeforeRequest.addListener(logURL, { urls: ["<all_urls>"] });
-
-chrome.webNavigation.onBeforeNavigate.addListener(function(details) {
-	if (details.frameId === 0 && details.url.match(".*cardgames.io.*")) {
-		requests = [];
-	}
-});

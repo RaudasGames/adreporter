@@ -24,6 +24,7 @@
 
 #ad-dialog h3, #ad-dialog h5 {
     color:white !important;
+    font-weight:normal;
 }
 
 #ad-dialog button {
